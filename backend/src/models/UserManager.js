@@ -17,6 +17,16 @@ class UserManager extends AbstractManager {
         return false;
       });
   }
+
+  find(id) {
+    return this.database.query(
+      `SELECT ${this.table}.name, firstname, mail, age, picture, description, typeId, city, types.name AS typeName 
+      FROM ${this.table} 
+      JOIN type AS types ON ${this.table}.typeId = types.id 
+      WHERE ${this.table}.id = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = UserManager;
