@@ -28,6 +28,42 @@ const browse = (req, res) => {
     });
 };
 
+const destroy = (req, res, next) => {
+  models.project
+    .deleteTech(req.params.id)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        next();
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
+const insertTechs = (req, res) => {
+  const { techId } = req.body;
+  const userId = req.payload.sub.id;
+  const projectId = req.params.id;
+
+  // TODO validations (length, format...)
+  const insertTechPromises = techId.map((tech) =>
+    models.project.insertTech(userId, projectId, tech)
+  );
+
+  Promise.all(insertTechPromises)
+    .then(([result]) => {
+      res.location(`/items/${result.insertId}`).sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const add = (req, res) => {
   const { name, theme, description, typeId, link, techId } = req.body;
   const userId = req.payload.sub.id;
@@ -64,4 +100,4 @@ const add = (req, res) => {
   return null;
 };
 
-module.exports = { add, browse };
+module.exports = { add, browse, destroy, insertTechs };

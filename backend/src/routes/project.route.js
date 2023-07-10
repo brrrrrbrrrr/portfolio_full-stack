@@ -4,4 +4,10 @@ const projectControllers = require("../controllers/projectControllers");
 
 router.post("/", verifyToken, projectControllers.add);
 router.get("/", projectControllers.browse);
+router.put(
+  "/:id",
+  verifyToken,
+  projectControllers.destroy,
+  projectControllers.insertTechs
+);
 module.exports = router;

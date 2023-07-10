@@ -29,6 +29,13 @@ class ProjectManager extends AbstractManager {
   findAll(userId) {
     return this.database.query(`select * from  ${this.table} `, [userId]);
   }
+
+  deleteTech(id) {
+    return this.database.query(
+      `delete from projecthastech  where projectId = ?`,
+      [id]
+    );
+  }
 }
 
 module.exports = ProjectManager;
