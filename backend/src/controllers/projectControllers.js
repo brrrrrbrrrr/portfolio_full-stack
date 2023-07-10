@@ -16,6 +16,18 @@ const validate = (data, forCreation = true) => {
     .validate(data, { abortEarly: false }).error;
 };
 
+const browse = (req, res) => {
+  models.project
+    .findAll()
+    .then(([rows]) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const add = (req, res) => {
   const { name, theme, description, typeId, link, techId } = req.body;
   const userId = req.payload.sub.id;
@@ -52,4 +64,4 @@ const add = (req, res) => {
   return null;
 };
 
-module.exports = { add };
+module.exports = { add, browse };

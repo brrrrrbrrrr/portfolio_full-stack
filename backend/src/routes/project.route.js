@@ -3,4 +3,5 @@ const { verifyToken } = require("../utils/auth");
 const projectControllers = require("../controllers/projectControllers");
 
 router.post("/", verifyToken, projectControllers.add);
+router.get("/", projectControllers.browse);
 module.exports = router;
