@@ -11,4 +11,5 @@ router.put(
   projectControllers.destroy,
   projectControllers.insertTechs
 );
+router.delete("/:id", verifyToken, projectControllers.destroy);
 module.exports = router;
