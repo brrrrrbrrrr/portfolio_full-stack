@@ -16,6 +16,23 @@ const validate = (data, forCreation = true) => {
     .validate(data, { abortEarly: false }).error;
 };
 
+const read = (req, res) => {
+  const projectId = req.params.id;
+  models.project
+    .find(projectId)
+    .then(([rows]) => {
+      if (rows[0] == null) {
+        res.sendStatus(404);
+      } else {
+        res.send(rows[0]);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(500);
+    });
+};
+
 const browse = (req, res) => {
   models.project
     .findAll()
@@ -100,4 +117,4 @@ const add = (req, res) => {
   return null;
 };
 
-module.exports = { add, browse, destroy, insertTechs };
+module.exports = { add, browse, destroy, insertTechs, read };

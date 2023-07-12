@@ -4,6 +4,7 @@ const projectControllers = require("../controllers/projectControllers");
 
 router.post("/", verifyToken, projectControllers.add);
 router.get("/", projectControllers.browse);
+router.get("/:id", projectControllers.read);
 router.put(
   "/:id",
   verifyToken,
