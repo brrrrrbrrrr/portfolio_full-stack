@@ -6,8 +6,11 @@ const SwitchContext = createContext();
 
 function SwitchProvider({ children }) {
   const [switchTheme, setSwitchTheme] = useState(false);
+  const [userLog, setUserLog] = useState(null);
   return (
-    <SwitchContext.Provider value={{ switchTheme, setSwitchTheme }}>
+    <SwitchContext.Provider
+      value={{ switchTheme, setSwitchTheme, userLog, setUserLog }}
+    >
       {children}
     </SwitchContext.Provider>
   );
