@@ -26,8 +26,10 @@ class ProjectManager extends AbstractManager {
     );
   }
 
-  findAll(userId) {
-    return this.database.query(`select * from  ${this.table} `, [userId]);
+  findAll() {
+    return this.database.query(
+      `SELECT ${this.table}.*, projecthastech.techId FROM ${this.table} JOIN projecthastech ON ${this.table}.id = projecthastech.projectId`
+    );
   }
 
   deleteTech(id) {
