@@ -1,0 +1,42 @@
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 150px;
+  z-index: 1;
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+.video-overlay.visible {
+  display: block;
+}
+
+.video-container {
+  width: 100%;
+  height: auto;
+}
+
+.video-li.active {
+  text-decoration: underline var(--primary-red);
+}
+
+.video-li {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .video-overlay {
+    width: 90vw;
+    top: 6rem;
+    left: 0;
+  }
+  .video-li {
+    text-align: center;
+    margin: 0 5px;
+  }
+  @media (max-width: 300px) {
+    .video-li {
+      font-size: 90%;
+    }
+  }
+}
