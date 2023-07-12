@@ -11,6 +11,7 @@ import WelcomeTypeWriter from "./components/welcome/WelcomeTypeWriter";
 import PageNav from "./components/page/pagenav/PageNav";
 import Socials from "./components/socials/Socials";
 import PageVideos from "./components/page/pageVideos/PageVideos";
+import PageLoginRegister from "./components/page/pageLogin/PageLoginRegister";
 
 function App() {
   const [homeAnimation, setHomeAnimation] = useState(false);
@@ -32,6 +33,7 @@ function App() {
               <Route path="/projects" element={<Project />} />
               <Route path="/contact" element={<Socials />} />
               <Route path="/videos" element={<PageVideos />} />
+              <Route path="/admin" element={<PageLoginRegister />} />
             </Route>
           </Routes>
         </HashRouter>
