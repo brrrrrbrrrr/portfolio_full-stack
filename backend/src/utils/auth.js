@@ -13,6 +13,7 @@ const verifyPassword = (req, res) => {
         const token = jwt.sign(payload, process.env.JWT_SECRET, {
           expiresIn: "2h",
         });
+
         delete req.user.password;
 
         res.send({ token, user: req.user });
