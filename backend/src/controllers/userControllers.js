@@ -61,6 +61,7 @@ const updateUser = (req, res) => {
     console.error(errors);
     return res.status(422).json({ error: errors.message });
   }
+
   models.user
     .update(updatedValues, idUser)
     .then(([result]) => {
@@ -77,4 +78,32 @@ const updateUser = (req, res) => {
   return null;
 };
 
-module.exports = { getUserByLoginToNext, read, updateUser };
+const updateUserDescription = (req, res) => {
+  const updateValues = req.body;
+  const idUser = req.payload.sub.id;
+  const errors = validate(updateValues, false);
+  if (errors) {
+    console.error(errors);
+    return res.status(422).json({ error: errors.message });
+  }
+  models.user
+    .updateDescription(updateValues, idUser)
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.sendStatus(404);
+      } else {
+        res.sendStatus(200);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.sendStatus(600);
+    });
+  return null;
+};
+module.exports = {
+  getUserByLoginToNext,
+  read,
+  updateUser,
+  updateUserDescription,
+};

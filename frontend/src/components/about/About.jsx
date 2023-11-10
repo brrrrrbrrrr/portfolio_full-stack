@@ -1,47 +1,113 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/no-array-index-key */
+import React, { useEffect, useState } from "react";
 import "./About.css";
+import useApi from "../services/useApi";
+import { useSwitch } from "../../contexts/SwitchContext";
 
 function About() {
+  const api = useApi();
+  const { userLog } = useSwitch();
+  const [dataUser, setDataUser] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+
+  const [descEdit, setDescEdit] = useState("");
+  const [validUpdate, setValidUpdate] = useState(false);
+  const [cancelUpdate, setCancelUpdate] = useState(false);
+  const [indexPosition, setIndexPosition] = useState("");
+
+  useEffect(() => {
+    api.get("/user").then((res) => {
+      setDataUser(res.data);
+    });
+  }, [validUpdate, isEdit]);
+
+  const handleEdit = (desc, index) => {
+    setIndexPosition(index);
+    setDescEdit(desc);
+    setIsEdit(true);
+  };
+
+  const handleCancel = () => {
+    setCancelUpdate(true);
+    setIsEdit(false);
+  };
+
+  const descrSplit = dataUser?.description?.split("#");
+
+  const handleValid = () => {
+    setValidUpdate(true);
+
+    descrSplit.splice(indexPosition, 1, descEdit);
+
+    const newData = {
+      description: descrSplit
+        .map((element, index) =>
+          index === descrSplit.length - 1 ? element : `${element}#`
+        )
+        .join(" "),
+    };
+
+    api
+      .put("/user", newData)
+      .then(() => {
+        setValidUpdate(!validUpdate);
+        setIsEdit(false);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête PUT :", error);
+      });
+  };
+
   return (
     <div>
       <article className="description-about-container">
         <div className="description-column">
           <div className="texte-container">
-            <p className="p-content p-content-1">
-              Je m'appelle Benjamin, et je suis un développeur web junior en
-              reconversion professionnelle.
-            </p>
-            <p className="p-content p-content-2">
-              En tant qu'ancien joueur compétitif, j'ai appris à optimiser mon
-              matériel pour atteindre des performances optimales dans les jeux.
-              Cette passion m'a appris l'importance de la persévérance et de la
-              résolution de problèmes, ce qui s'est avéré être une compétence
-              précieuse dans le monde de la programmation. J'ai ainsi toujours
-              atteint les résultats que je visais.
-            </p>
+            {isEdit && (
+              <div>
+                <textarea
+                  value={descEdit}
+                  onChange={(e) => setDescEdit(e.target.value)}
+                  className="textarea-description"
+                />
+                <button type="button" onClick={() => handleValid()}>
+                  Valider
+                </button>
+                <button type="button" onClick={() => handleCancel()}>
+                  Annuler
+                </button>
+              </div>
+            )}
 
-            <p className="p-content p-content-3">
-              J'ai découvert ma passion pour le développement web lors de ma
-              reconversion professionnelle. Attiré par l'idée de pouvoir
-              travailler dans ce domaine sans avoir besoin d'un diplôme, j'ai
-              suivi la formation certifiante "Développement Web Full-Stack" de
-              la Wild Code School. J'y ai acquis une expérience précieuse en
-              développement front-end (React) et back-end (Node/Express), et
-              j'ai été captivé par la possibilité de coder pour créer des sites
-              web et des applications unique et fonctionnelle.
-            </p>
+            {descrSplit &&
+              descrSplit?.map((desc, index) => {
+                return (
+                  <div key={index} role="button" tabIndex="">
+                    <p
+                      className={
+                        isEdit
+                          ? index === indexPosition
+                            ? "active"
+                            : "texte-description_p"
+                          : "texte-description_p"
+                      }
+                    >
+                      {desc}
+                    </p>
 
-            <p className="p-content p-content-4">
-              En tant qu'ancien manager en restauration rapide, j'ai acquis une
-              gamme de compétences techniques et personnelles qui sont
-              transférables au développement web. Mon souci du détail et mon
-              engagement à fournir un code propre et bien structuré sont des
-              atouts que je considère essentiels dans le monde dynamique et
-              rapide du développement web. Je suis impatient de continuer à
-              apprendre et à grandir en tant que développeur, et je suis heureux
-              de vous présenter certains des projets sur lesquels j'ai
-              travaillé.
-            </p>
+                    {userLog && (
+                      <button
+                        type="button"
+                        onClick={() => handleEdit(desc, index)}
+                      >
+                        Modifier
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
           </div>
         </div>
       </article>
