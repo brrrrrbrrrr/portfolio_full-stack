@@ -34,6 +34,13 @@ class UserManager extends AbstractManager {
       id,
     ]);
   }
+
+  updateDescription(description, id) {
+    return this.database.query(
+      `update ${this.table} set description = ? where id = ?`,
+      [description, id]
+    );
+  }
 }
 
 module.exports = UserManager;
