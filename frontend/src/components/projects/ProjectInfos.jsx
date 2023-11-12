@@ -28,9 +28,9 @@ function ProjectInfos({ showProject }) {
               Visiter
             </a>
           )}
-        <h4 className="title-hardskill">
+        {/* <h4 className="title-hardskill">
           {showProject?.hardSkillName.join(" ")}
-        </h4>
+        </h4> */}
       </div>
     </div>
   );

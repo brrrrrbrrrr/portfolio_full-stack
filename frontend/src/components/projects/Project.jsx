@@ -7,17 +7,28 @@ import "swiper/css/pagination";
 import "./Swiper.css";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Navigation, Mousewheel, Keyboard } from "swiper/modules";
-import ProjectsArray from "./ProjectsArray";
+
 import ProjectInfos from "./ProjectInfos";
+import useApi from "../services/useApi";
 
 function Project() {
+  const api = useApi();
+  const [projectsArray, setProjectArray] = useState([]);
   const [showProject, setShowProject] = useState();
   useEffect(() => {
-    setShowProject(ProjectsArray[0]);
+    api
+      .get("/project")
+      .then((res) => {
+        setShowProject(res.data[0]);
+        setProjectArray(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const handleSlideChange = (swiper) => {
-    const currentItem = ProjectsArray[swiper.realIndex];
+    const currentItem = projectsArray[swiper.realIndex];
     setShowProject(currentItem);
   };
   return (
@@ -39,7 +50,7 @@ function Project() {
           className="mySwiper"
           onSlideChange={handleSlideChange}
         >
-          {ProjectsArray.map((item) => (
+          {projectsArray.map((item) => (
             <SwiperSlide key={item.id}>
               <h1 className="project-name">{item.name}</h1>
             </SwiperSlide>
