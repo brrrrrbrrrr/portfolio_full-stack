@@ -7,11 +7,12 @@ import "swiper/css/pagination";
 import "./Swiper.css";
 import { SwiperSlide, Swiper } from "swiper/react";
 import { Navigation, Mousewheel, Keyboard } from "swiper/modules";
-
+import { useSwitch } from "../../contexts/SwitchContext";
 import ProjectInfos from "./ProjectInfos";
 import useApi from "../services/useApi";
 
 function Project() {
+  const { reload } = useSwitch();
   const api = useApi();
   const [projectsArray, setProjectArray] = useState([]);
   const [showProject, setShowProject] = useState();
@@ -25,7 +26,7 @@ function Project() {
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [reload]);
 
   const handleSlideChange = (swiper) => {
     const currentItem = projectsArray[swiper.realIndex];

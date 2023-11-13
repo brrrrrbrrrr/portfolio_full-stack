@@ -19,6 +19,17 @@
   animation: fadeIn 3s;
 }
 
+.project-infos_form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.project-infos_area {
+  resize: vertical;
+  height: 30vh;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;
