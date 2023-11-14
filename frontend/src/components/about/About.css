@@ -21,8 +21,15 @@
   margin: 10px 0;
 }
 
+.texte-container_btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
 .active {
-  color: red;
+  color: var(--primary-red);
   position: relative;
 }
 .textarea-description {
@@ -31,6 +38,8 @@
   resize: vertical;
   background-color: inherit;
   color: inherit;
+  border: 1px solid var(--primary-red);
+  padding: 10px;
 }
 
 @keyframes fadeIn {

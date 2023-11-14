@@ -72,12 +72,22 @@ function About() {
                   onChange={(e) => setDescEdit(e.target.value)}
                   className="textarea-description"
                 />
-                <button type="button" onClick={() => handleValid()}>
-                  Valider
-                </button>
-                <button type="button" onClick={() => handleCancel()}>
-                  Annuler
-                </button>
+                <div className="texte-container_btn-container">
+                  <button
+                    type="button"
+                    className="texte-container_btn"
+                    onClick={() => handleValid()}
+                  >
+                    Valider
+                  </button>
+                  <button
+                    type="button"
+                    className="texte-container_btn"
+                    onClick={() => handleCancel()}
+                  >
+                    Annuler
+                  </button>
+                </div>
               </div>
             )}
 
