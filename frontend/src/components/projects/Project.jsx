@@ -16,20 +16,27 @@ function Project() {
   const api = useApi();
   const [projectsArray, setProjectArray] = useState([]);
   const [showProject, setShowProject] = useState();
+  const [swiper, setSwiper] = useState(null);
+
   useEffect(() => {
     api
       .get("/project")
       .then((res) => {
         setShowProject(res.data[0]);
         setProjectArray(res.data);
+        if (swiper) {
+          swiper.slideTo(0);
+        }
       })
       .catch((err) => {
         console.error(err);
       });
   }, [reload]);
 
-  const handleSlideChange = (swiper) => {
-    const currentItem = projectsArray[swiper.realIndex];
+  useEffect(() => {}, [reload]);
+
+  const handleSlideChange = (swipers) => {
+    const currentItem = projectsArray[swipers.activeIndex];
     setShowProject(currentItem);
   };
   return (
@@ -50,6 +57,7 @@ function Project() {
           modules={[Navigation, Mousewheel, Keyboard]}
           className="mySwiper"
           onSlideChange={handleSlideChange}
+          onSwiper={(slide) => setSwiper(slide)}
         >
           {projectsArray.map((item) => (
             <SwiperSlide key={item.id}>
