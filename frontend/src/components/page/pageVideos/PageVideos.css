@@ -1,0 +1,34 @@
+.page-videos_container {
+  position: absolute;
+  left: 15%;
+  width: 60vw;
+}
+
+.page-videos_column {
+  position: relative;
+}
+
+.page-video_h1 {
+  text-align: end;
+}
+
+@media screen and (max-width: 800px) {
+  .page-videos_container {
+    left: initial;
+    top: 16rem;
+    width: 90%;
+    right: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .page-videos_column {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+    min-height: 5rem;
+    align-items: center;
+  }
+}

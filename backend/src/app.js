@@ -15,18 +15,33 @@ app.use(express.json());
 
 const cors = require("cors");
 
+const allowedOrigins = [
+  "https://benjamin-chaillan.fr",
+  "https://portfolio-hag5.onrender.com/api/",
+  // Ajoutez d'autres origines si nécessaire
+];
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
+    origin(origin, callback) {
+      // Vérifiez si l'origine est dans la liste des origines autorisées
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     optionsSuccessStatus: 200,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    // Autres options CORS peuvent être ajoutées ici
   })
 );
-
 // import and mount the API routes
 
-const router = require("./router");
+const router = require("./routes/index.route");
 
-app.use(router);
+app.use("/api", router);
 
 // serve the `backend/public` folder for public resources
 
