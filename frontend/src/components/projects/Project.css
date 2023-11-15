@@ -19,6 +19,167 @@
   animation: fadeIn 3s;
 }
 
+.project-infos_form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.project-infos_area {
+  resize: vertical;
+  height: 30vh;
+}
+
+.project-infos_input-container {
+  padding: 5px;
+  background-color: inherit;
+  color: inherit;
+  position: relative;
+  width: 50%;
+}
+
+.project-infos_input-container::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  background-color: var(--primary-red);
+  height: 1px;
+  width: 30%;
+}
+
+.project-infos_input {
+  width: 100%;
+  padding: 5px;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+.project-infos_label {
+  position: relative;
+}
+
+.project-infos_form-theme_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.project-infos_label-desc_container {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-infos_area-textarea_container {
+  width: 80%;
+  position: relative;
+}
+
+.project-infos_area-textarea_container::after {
+  content: "";
+  position: absolute;
+  background-color: var(--primary-red);
+  top: 0;
+  left: -10px;
+  width: 1px;
+  height: 100%;
+}
+
+.project-infos_area {
+  width: 100%;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+.project-infos_label::after {
+  content: "";
+  position: absolute;
+  border: 2px solid var(--primary-red);
+  background-color: var(--primary-red);
+  border-radius: 50%;
+  height: 1px;
+  width: 1px;
+  bottom: 5px;
+  left: -10px;
+}
+
+.project-infos_link-container {
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
+  justify-content: space-between;
+}
+
+.project-infos_link-input {
+  width: 50%;
+  position: relative;
+}
+
+.project-infos_link-input::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 20%;
+  background-color: var(--primary-red);
+  height: 1px;
+  width: 30%;
+}
+
+.project-infos_link {
+  width: 100%;
+  border: 1px solid red;
+  padding: 5px;
+  color: inherit;
+  background-color: inherit;
+  border: none;
+  outline: none;
+}
+
+.project-infos_tech-container {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.project-infos_tech-h4 {
+  position: relative;
+}
+
+.project-infos_tech-h4::after {
+  content: "";
+  position: absolute;
+  border: 2px solid var(--primary-red);
+  background-color: var(--primary-red);
+  border-radius: 50%;
+  height: 1px;
+  width: 1px;
+  bottom: 5px;
+  left: -10px;
+}
+
+.label-checkbox {
+  padding-left: 5px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.label-checkbox.checked::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  background-color: var(--primary-red);
+  height: 1px;
+  width: 100%;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;

@@ -45,40 +45,69 @@ const browse = (req, res) => {
     });
 };
 
-const destroy = (req, res, next) => {
+const destroyTech = (req, res, next) => {
+  const userId = req.payload.sub.id;
+  const id = parseInt(req.params.id, 10);
+
   models.project
-    .deleteTech(req.params.id)
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
+    .findTech(userId, id)
+    .then(([rows]) => {
+      if (rows[0] == null) {
         next();
+      } else {
+        models.project
+          .deleteTech(userId, id)
+
+          .then(([result]) => {
+            if (result.affectedRows === 0) {
+              res.sendStatus(404);
+            } else {
+              next();
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+
+            res.sendStatus(500);
+          });
       }
     })
     .catch((err) => {
       console.error(err);
-      res.sendStatus(500);
     });
 };
 
-const insertTechs = (req, res) => {
+const insertTechs = (req, res, next) => {
   const { techId } = req.body;
-  const userId = req.payload.sub.id;
-  const projectId = req.params.id;
+  if (techId && Object.keys(techId).length > 0) {
+    const userId = req.payload.sub.id;
+    const projectId = req.params.id;
 
-  // TODO validations (length, format...)
-  const insertTechPromises = techId.map((tech) =>
-    models.project.insertTech(userId, projectId, tech)
-  );
+    // TODO validations (length, format...)
 
-  Promise.all(insertTechPromises)
-    .then(([result]) => {
-      res.location(`/items/${result.insertId}`).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.sendStatus(500);
-    });
+    const insertTechPromises = techId.map((tech) =>
+      models.project.insertTech(userId, projectId, tech)
+    );
+
+    Promise.all(insertTechPromises)
+      .then(([result]) => {
+        if (result.affectedRows === 0) {
+          res.sendStatus(404);
+        } else {
+          delete req.body.techId;
+
+          next();
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+
+        res.sendStatus(500);
+      });
+  } else {
+    delete req.body.techId;
+    next();
+  }
 };
 
 const add = (req, res) => {
@@ -117,4 +146,29 @@ const add = (req, res) => {
   return null;
 };
 
-module.exports = { add, browse, destroy, insertTechs, read };
+const edit = (req, res) => {
+  if (req.body && Object.keys(req.body).length > 0) {
+    const values = req.body;
+
+    // TODO validations (length, format...)
+
+    const id = parseInt(req.params.id, 10);
+
+    models.project
+      .update(values, id)
+      .then(([result]) => {
+        if (result.affectedRows === 0) {
+          res.sendStatus(404);
+        } else {
+          res.sendStatus(204);
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+
+        res.sendStatus(500);
+      });
+  } else res.sendStatus(204);
+};
+
+module.exports = { add, browse, destroyTech, insertTechs, read, edit };

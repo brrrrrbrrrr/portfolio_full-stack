@@ -22,20 +22,36 @@
 }
 
 .connexion-btn {
+  position: relative;
   font-size: 1rem;
   padding: 10px 15px;
   border-radius: 3px;
-  background-color: va(--grey-input);
+  background-color: inherit;
   color: var(--background-color);
   text-transform: uppercase;
   cursor: pointer;
-  transition: all, 0.3s;
+  overflow: hidden;
+  border: 0px;
 }
 
-.connexion-btn:hover {
-  border: 1px solid rgb(250, 250, 250);
-  color: white;
+.connexion-btn::before {
+  content: "";
+  position: absolute;
+  border: 1px solid var(--primary-red);
+  background-color: var(--primary-red);
+  bottom: 0;
+  width: 10px;
+  transition: width 0.5s;
 }
+
+.connexion-btn:hover::before {
+  width: 50%;
+}
+
+.connexion-btn:hover::before {
+  opacity: 1;
+}
+
 .connexion-btn-container {
   display: flex;
   justify-content: center;

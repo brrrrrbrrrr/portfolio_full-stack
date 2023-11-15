@@ -7,9 +7,17 @@ const SwitchContext = createContext();
 function SwitchProvider({ children }) {
   const [switchTheme, setSwitchTheme] = useState(false);
   const [userLog, setUserLog] = useState(null);
+  const [reload, setReload] = useState(1);
   return (
     <SwitchContext.Provider
-      value={{ switchTheme, setSwitchTheme, userLog, setUserLog }}
+      value={{
+        switchTheme,
+        setSwitchTheme,
+        userLog,
+        setUserLog,
+        reload,
+        setReload,
+      }}
     >
       {children}
     </SwitchContext.Provider>

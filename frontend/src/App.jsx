@@ -6,6 +6,7 @@ import PageInfos from "./components/page/pageinfos/PageInfos";
 import Avatar from "./components/avatar/Avatar";
 import SwitchProvider from "./contexts/SwitchContext";
 import About from "./components/about/About";
+
 import Project from "./components/projects/Project";
 import WelcomeTypeWriter from "./components/welcome/WelcomeTypeWriter";
 import PageNav from "./components/page/pagenav/PageNav";
@@ -29,6 +30,7 @@ function App() {
           <Routes>
             <Route path="/" element={<PageInfos />}>
               <Route index element={<WelcomeTypeWriter />} />
+
               <Route path="/about" element={<About />} />
               <Route path="/projects" element={<Project />} />
               <Route path="/contact" element={<Socials />} />
