@@ -17,8 +17,11 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL ?? "http://localhost:3000",
+    origin: process.env.FRONTEND_URL ?? "https://benjamin-chaillan.fr",
     optionsSuccessStatus: 200,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Si vous utilisez des cookies ou des informations d'identification
+    // Autres options CORS peuvent être ajoutées ici
   })
 );
 
