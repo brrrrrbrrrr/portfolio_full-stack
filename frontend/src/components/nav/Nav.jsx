@@ -12,38 +12,44 @@ function Nav() {
   return (
     <div className="nav-container">
       <ul className="nav-ul-container">
-        <Link to="/">
-          <li className={`link ${activeLink === "/" ? "active-menu" : "link"}`}>
+        <li>
+          <Link
+            to="/"
+            className={`link ${activeLink === "/" ? "active-menu" : "link"}`}
+          >
             Accueil
-          </li>
-        </Link>
-        <Link to="/projects">
-          <li
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/projects"
             className={`link ${
               activeLink === "/projects" ? "active-menu" : "link"
             }`}
           >
             Projets
-          </li>
-        </Link>
-        <Link to="/about">
-          <li
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/about"
             className={`link ${
               activeLink === "/about" ? "active-menu" : "link"
             }`}
           >
             À propos
-          </li>
-        </Link>
-        <Link to="/contact">
-          <li
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/contact"
             className={`link ${
               activeLink === "/contact" ? "active-menu" : "link"
             }`}
           >
             Contacts
-          </li>
-        </Link>
+          </Link>
+        </li>
       </ul>
     </div>
   );
