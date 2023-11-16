@@ -3,7 +3,7 @@ import axios from "axios";
 
 let apiSingleton = null;
 
-const apiUrl = "http://srv441095.hstgr.cloud/api";
+const apiUrl = "http://srv441095.hstgr.cloud:5001/api";
 
 const useApi = () => {
   if (!apiSingleton) {
