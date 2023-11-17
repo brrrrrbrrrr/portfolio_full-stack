@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import useApi from "../services/useApi";
 import { useSwitch } from "../../contexts/SwitchContext";
 import Update from "../update/Update";
-import bassmusic from "../../assets/images/project/bassmusic.webp";
 
 function ProjectInfos({ showProject }) {
   const { userLog, reload, setReload } = useSwitch();
@@ -18,6 +17,7 @@ function ProjectInfos({ showProject }) {
   const [tech, setTech] = useState();
   const [techIds, setTechIds] = useState();
   const [moreInfos, setMoreInfos] = useState(false);
+
   useEffect(() => {
     api
       .get("/tech")
@@ -26,6 +26,8 @@ function ProjectInfos({ showProject }) {
       })
       .catch((err) => console.error(err));
   }, []);
+
+  const imgUrl = "http://localhost:5001/";
 
   // const techIds = showProject?.techIds.split(",");
 
@@ -99,7 +101,7 @@ function ProjectInfos({ showProject }) {
         <div>
           <img
             className="bassmusic-cover"
-            src={bassmusic}
+            src={`${imgUrl}${showProject?.img}`}
             alt="homepage bassmusic"
           />
           <button
@@ -118,12 +120,12 @@ function ProjectInfos({ showProject }) {
           <div className="footer-description">
             <Link to="/videos">
               {showProject && showProject.link === "videos" && (
-                <span className="project-container-link">Vidéos</span>
+                <span className="project-container-link-span">Vidéos</span>
               )}
             </Link>
             {showProject && showProject.link === "progress" && (
-              <span className="project-container-link">En cours</span>
-            )}{" "}
+              <span className="project-container-link-span">En cours</span>
+            )}
             {showProject &&
               showProject.link !== "progress" &&
               showProject.link !== "videos" && (
@@ -136,24 +138,22 @@ function ProjectInfos({ showProject }) {
                 </a>
               )}
             <h4 className="title-hardskill">{showProject?.techName}</h4>
+            <button
+              type="button"
+              className="bassmusic-btn"
+              onClick={() => setMoreInfos(false)}
+            >
+              <img
+                src={`${imgUrl}${showProject?.img}`}
+                className="bassmusic-thumb"
+                alt="homepage bassmusic"
+              />
+            </button>
           </div>
-
-          {/* <button onClick={() => setMoreInfos(false)}>img</button> */}
-          <button
-            type="button"
-            className="bassmusic-btn"
-            onClick={() => setMoreInfos(false)}
-          >
-            <img
-              src={bassmusic}
-              className="bassmusic-thumb"
-              alt="homepage bassmusic"
-            />
-          </button>
         </div>
       )}
       {!edit && userLog && (
-        <button type="button" onClick={handleEdit}>
+        <button type="button" className="btn-modify" onClick={handleEdit}>
           Modifier
         </button>
       )}

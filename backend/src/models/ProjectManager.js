@@ -22,14 +22,14 @@ class ProjectManager extends AbstractManager {
   findAll() {
     return this.database.query(
       `SELECT ${this.table}.id, ${this.table}.name, ${this.table}.theme, ${this.table}.description,
-       ${this.table}.userId, ${this.table}.typeId, ${this.table}.link,
+       ${this.table}.userId, ${this.table}.typeId, ${this.table}.link, ${this.table}.img,
        GROUP_CONCAT(tech.name) AS techName, 
        GROUP_CONCAT(projecthastech.techId) AS techIds
        FROM ${this.table} 
        LEFT JOIN projecthastech ON ${this.table}.id = projecthastech.projectId
        LEFT JOIN tech ON tech.id = projecthastech.techId 
        GROUP BY ${this.table}.id, 
-       ${this.table}.name, ${this.table}.theme, ${this.table}.description, ${this.table}.userId, ${this.table}.typeId, ${this.table}.link`
+       ${this.table}.name, ${this.table}.theme, ${this.table}.description, ${this.table}.userId, ${this.table}.typeId, ${this.table}.link, ${this.table}.img `
     );
   }
 
