@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useApi from "../services/useApi";
 import { useSwitch } from "../../contexts/SwitchContext";
 import Update from "../update/Update";
+import bassmusic from "../../assets/images/project/bassmusic.webp";
 
 function ProjectInfos({ showProject }) {
   const { userLog, reload, setReload } = useSwitch();
@@ -16,6 +17,7 @@ function ProjectInfos({ showProject }) {
   const [update, setUpdate] = useState(false);
   const [tech, setTech] = useState();
   const [techIds, setTechIds] = useState();
+  const [moreInfos, setMoreInfos] = useState(false);
   useEffect(() => {
     api
       .get("/tech")
@@ -93,7 +95,23 @@ function ProjectInfos({ showProject }) {
   return (
     <div className="project-container">
       {update && <Update />}
-      {!edit && (
+      {!moreInfos && (
+        <div>
+          <img
+            className="bassmusic-cover"
+            src={bassmusic}
+            alt="homepage bassmusic"
+          />
+          <button
+            type="button"
+            className="more-infos_btn"
+            onClick={() => setMoreInfos(true)}
+          >
+            plus d'infos
+          </button>
+        </div>
+      )}
+      {!edit && moreInfos && (
         <div>
           <h2 className="title-theme">Thème : {showProject?.theme}</h2>
           <div className="project-description">{showProject?.description}</div>
@@ -119,6 +137,19 @@ function ProjectInfos({ showProject }) {
               )}
             <h4 className="title-hardskill">{showProject?.techName}</h4>
           </div>
+
+          {/* <button onClick={() => setMoreInfos(false)}>img</button> */}
+          <button
+            type="button"
+            className="bassmusic-btn"
+            onClick={() => setMoreInfos(false)}
+          >
+            <img
+              src={bassmusic}
+              className="bassmusic-thumb"
+              alt="homepage bassmusic"
+            />
+          </button>
         </div>
       )}
       {!edit && userLog && (

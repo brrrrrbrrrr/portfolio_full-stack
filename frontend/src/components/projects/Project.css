@@ -180,6 +180,41 @@
   width: 100%;
 }
 
+.bassmusic-cover {
+  width: 100%;
+  border: 1px solid grey;
+}
+
+.more-infos_btn {
+  background: none;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  width: 100%;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--primary-red);
+}
+
+.more-infos_btn:hover {
+  transition: all ease-in-out 0.5s;
+  color: var(--primary-red);
+}
+
+.more-infos_btn:not(:hover) {
+  transition: all ease-in-out 0.5s;
+}
+
+.bassmusic-btn {
+  width: 30%;
+  border: none;
+}
+
+.bassmusic-thumb {
+  width: 100%;
+  border: 1px solid grey;
+  cursor: pointer;
+}
 @keyframes fadeIn {
   0% {
     opacity: 0;
