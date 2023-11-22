@@ -16,6 +16,8 @@ function ProjectInfos({ showProject }) {
   const [update, setUpdate] = useState(false);
   const [tech, setTech] = useState();
   const [techIds, setTechIds] = useState();
+  const [moreInfos, setMoreInfos] = useState(false);
+
   useEffect(() => {
     api
       .get("/tech")
@@ -25,7 +27,9 @@ function ProjectInfos({ showProject }) {
       .catch((err) => console.error(err));
   }, []);
 
-  // const techIds = showProject?.techIds.split(",");
+  const imgUrl = "http://localhost:5001/";
+
+  const techName = showProject?.techName.split(",").join(", ");
 
   const handleEdit = () => {
     setTheme(showProject?.theme);
@@ -93,7 +97,23 @@ function ProjectInfos({ showProject }) {
   return (
     <div className="project-container">
       {update && <Update />}
-      {!edit && (
+      {!moreInfos && (
+        <div>
+          <img
+            className="bassmusic-cover"
+            src={`${imgUrl}${showProject?.img}`}
+            alt="homepage bassmusic"
+          />
+          <button
+            type="button"
+            className="more-infos_btn"
+            onClick={() => setMoreInfos(true)}
+          >
+            plus d'infos
+          </button>
+        </div>
+      )}
+      {!edit && moreInfos && (
         <div>
           <h2 className="title-theme">Thème : {showProject?.theme}</h2>
           <div className="project-description">{showProject?.description}</div>
@@ -105,7 +125,7 @@ function ProjectInfos({ showProject }) {
             </Link>
             {showProject && showProject.link === "progress" && (
               <span className="project-container-link">En cours</span>
-            )}{" "}
+            )}
             {showProject &&
               showProject.link !== "progress" &&
               showProject.link !== "videos" && (
@@ -117,12 +137,23 @@ function ProjectInfos({ showProject }) {
                   Visiter
                 </a>
               )}
-            <h4 className="title-hardskill">{showProject?.techName}</h4>
+            <h4 className="title-hardskill">{techName}</h4>
+            <button
+              type="button"
+              className="bassmusic-btn"
+              onClick={() => setMoreInfos(false)}
+            >
+              <img
+                src={`${imgUrl}${showProject?.img}`}
+                className="bassmusic-thumb"
+                alt="homepage bassmusic"
+              />
+            </button>
           </div>
         </div>
       )}
       {!edit && userLog && (
-        <button type="button" onClick={handleEdit}>
+        <button type="button" className="btn-modify" onClick={handleEdit}>
           Modifier
         </button>
       )}
