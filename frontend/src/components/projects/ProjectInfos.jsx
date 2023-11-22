@@ -29,7 +29,7 @@ function ProjectInfos({ showProject }) {
 
   const imgUrl = "http://localhost:5001/";
 
-  // const techIds = showProject?.techIds.split(",");
+  const techName = showProject?.techName.split(",").join(", ");
 
   const handleEdit = () => {
     setTheme(showProject?.theme);
@@ -120,11 +120,11 @@ function ProjectInfos({ showProject }) {
           <div className="footer-description">
             <Link to="/videos">
               {showProject && showProject.link === "videos" && (
-                <span className="project-container-link-span">Vidéos</span>
+                <span className="project-container-link">Vidéos</span>
               )}
             </Link>
             {showProject && showProject.link === "progress" && (
-              <span className="project-container-link-span">En cours</span>
+              <span className="project-container-link">En cours</span>
             )}
             {showProject &&
               showProject.link !== "progress" &&
@@ -137,7 +137,7 @@ function ProjectInfos({ showProject }) {
                   Visiter
                 </a>
               )}
-            <h4 className="title-hardskill">{showProject?.techName}</h4>
+            <h4 className="title-hardskill">{techName}</h4>
             <button
               type="button"
               className="bassmusic-btn"

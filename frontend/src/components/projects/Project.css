@@ -333,6 +333,7 @@
 .title-hardskill {
   margin-right: 10px;
   font-size: 1rem;
+  text-transform: uppercase;
 }
 
 .footer-description {
@@ -345,11 +346,11 @@
 
 .project-container-link {
   position: relative;
-  color: grey;
+  color: inherit;
   font-size: 1.5rem;
   padding: 10px;
   transition: all 2s;
-  /* border: 1px solid red; */
+  text-transform: uppercase;
   width: auto;
 }
 
