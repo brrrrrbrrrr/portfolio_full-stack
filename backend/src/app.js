@@ -2,6 +2,7 @@
 
 const fs = require("node:fs");
 const path = require("node:path");
+require("dotenv").config();
 
 // create express app
 
@@ -15,11 +16,7 @@ app.use(express.json());
 
 const cors = require("cors");
 
-const allowedOrigins = [
-  "http://localhost:3000",
-
-  // Ajoutez d'autres origines si nécessaire
-];
+const allowedOrigins = [process.env.FRONTEND_URL];
 
 app.use(
   cors({
