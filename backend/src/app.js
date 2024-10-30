@@ -16,8 +16,8 @@ app.use(express.json());
 const cors = require("cors");
 
 const allowedOrigins = [
-  "https://benjamin-chaillan.fr",
-  "https://portfolio-hag5.onrender.com/api/",
+  "http://localhost:3000",
+
   // Ajoutez d'autres origines si nécessaire
 ];
 
